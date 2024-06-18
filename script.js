@@ -1,6 +1,3 @@
-let humanScore,
-  computerScore = 0;
-
 function getComputerChoice() {
   const computerChoice = Math.floor(Math.random() * 3); //RETURNS 0,1,2
   if (computerChoice == 0) {
@@ -18,26 +15,50 @@ function getHumanChoice() {
 function playRound(humanChoice, computerChoice) {
   //Rock beats scissors, scissors beat paper, paper beats rock
   humanChoice.toLowerCase();
+  let humanWinner = true;
   switch (humanChoice) {
     case "rock":
       if (computerChoice == "Paper") {
         console.log("You Lose! Paper beats Rock!");
+        humanWinner = false;
       } else console.log("You Win");
-      break;
+      return humanWinner;
     case "paper":
       if (computerChoice == "Scissor") {
         console.log("You Lose! Scissor beats Paper!");
+        humanWinner = false;
       } else console.log("You Win");
-      break;
+      return humanWinner;
     case "scissor":
       if (computerChoice == "Rock") {
         console.log("You Lose! Rock beats Scissor!");
+        humanWinner = false;
       } else console.log("You Win");
-      break;
+      return humanWinner;
   }
 }
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
+function playGame() {
+  let humanScore = 0;
+  let computerScore = 0;
+  let rounds = 0;
+  while (rounds != 5) {
+    const humanSelection = getHumanChoice();
+    const computerSelection = getComputerChoice();
+    let winner = playRound(humanSelection, computerSelection);
+    if (winner) {
+      humanScore++;
+    } else computerScore++;
+    rounds++;
+  }
+  if (humanScore > computerScore) {
+    console.log("You are the Winner!");
+  } else console.log("You Lose, Try Again Next Time!");
+}
 
-playRound(humanSelection, computerSelection);
+playGame();
+
+// const humanSelection = getHumanChoice();
+// const computerSelection = getComputerChoice();
+
+// playRound(humanSelection, computerSelection);
